@@ -34,11 +34,26 @@ public class UserService {
 		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
 
 	}
-	
+
 	public void delete(String id) {
-		
-		 repository.deleteById(id);
-		
+
+		repository.deleteById(id);
+
 	}
 
+	public User update(User obj) {
+			User newObj = findById(obj.getId());
+			updateData(newObj, obj);
+			return repository.save(newObj);
+        
+	}
+	private void updateData(User newObj, User obj) {
+		// TODO Auto-generated method stub
+		newObj.setName(obj.getName());
+		newObj.setEmail(obj.getEmail());
+	}
+	
+
 }
+
+

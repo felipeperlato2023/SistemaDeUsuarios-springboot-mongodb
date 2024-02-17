@@ -1,0 +1,55 @@
+package com.algaworks.workshopmongo.config;
+
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Configuration;
+
+import com.algaworks.workshopmongo.Repositories.PostRepository;
+import com.algaworks.workshopmongo.Repositories.UserRepository;
+import com.algaworks.workshopmongo.domain.Post;
+import com.algaworks.workshopmongo.domain.User;
+
+@Configuration
+public class Instantiation implements CommandLineRunner{
+
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private PostRepository postRepository;
+	
+	
+	@Override
+	public void run(String... args) throws Exception {
+		// TODO Auto-generated method stub
+		
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+		
+		 userRepository.deleteAll();
+		 postRepository.deleteAll();
+		
+		User maria = new User(null, "Maria Brown 2", "maria@gmail2.com");
+		User alex = new User(null, "Alex Green 2", "alex@gmail2.com");
+		User bob = new User(null, "Bob Grey 2", "bob@gmail2.com");
+		
+		
+		Post p1 = new Post(null,sdf.parse("16/02/2024"), "partiu viagem", "Vou viajar para SP. Abraços.", maria);
+		
+		Post p2 = new Post(null,sdf.parse("17/02/2024"), "Bom dia", "Hoje acordei feliz!.", maria);
+		
+	   
+		postRepository.save(p1);
+		postRepository.save(p2);
+		
+		userRepository.save(maria);
+		userRepository.save(alex);
+		userRepository.save(bob);
+		
+	}
+
+}
