@@ -1,59 +1,25 @@
 package com.algaworks.workshopmongo.Services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.algaworks.workshopmongo.Dtos.userDTO;
-import com.algaworks.workshopmongo.Repositories.UserRepository;
+import com.algaworks.workshopmongo.Repositories.PostRepository;
 import com.algaworks.workshopmongo.Services.Exceptions.ObjectNotFoundException;
-import com.algaworks.workshopmongo.domain.User;
+import com.algaworks.workshopmongo.domain.Post;
 
 @Service
 public class PostService {
 
 	@Autowired
-	private UserRepository repository;
+	private PostRepository repository;
 
-	public List<User> findAll() {
-		return repository.findAll();
+
+	public Post findById(String id) {
+		java.util.Optional<Post> obj = repository.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Post não encontrado: " + id));
 	}
 
-	public User findById(String id) {
-		java.util.Optional<User> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException("objeto não encontrado: " + id));
-	}
-
-	public User insert(User obj) {
-		return repository.insert(obj);
-	}
-
-	public User fromDto(userDTO objDto) {
-
-		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
-
-	}
-
-	public void delete(String id) {
-
-		repository.deleteById(id);
-
-	}
-
-	public User update(User obj) {
-			User newObj = findById(obj.getId());
-			updateData(newObj, obj);
-			return repository.save(newObj);
-        
-	}
-	private void updateData(User newObj, User obj) {
-		// TODO Auto-generated method stub
-		newObj.setName(obj.getName());
-		newObj.setEmail(obj.getEmail());
-	}
 	
-
 }
 
 
