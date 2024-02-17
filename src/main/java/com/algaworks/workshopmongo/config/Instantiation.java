@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import com.algaworks.workshopmongo.Dtos.AuthorDTO;
+import com.algaworks.workshopmongo.Dtos.CommentDTO;
 import com.algaworks.workshopmongo.Repositories.PostRepository;
 import com.algaworks.workshopmongo.Repositories.UserRepository;
 import com.algaworks.workshopmongo.domain.Post;
@@ -56,7 +57,16 @@ public class Instantiation implements CommandLineRunner{
 		
 		userRepository.save(maria);
 		
+		CommentDTO c1 = new CommentDTO("Boa viagem mano",sdf.parse("17/02/2024"), new AuthorDTO(alex));
+		CommentDTO c2 = new CommentDTO("Aproveita",sdf.parse("18/02/2024"), new AuthorDTO(bob));
+		CommentDTO c3 = new CommentDTO("Tenha um ótimo dia",sdf.parse("16/02/2024"), new AuthorDTO(alex));
 		
+		p1.getList().add(c1);
+		p1.getList().add(c2);
+		p2.getList().add(c3);
+		
+		postRepository.save(p1);
+		postRepository.save(p2);
 		
 		
 	}
