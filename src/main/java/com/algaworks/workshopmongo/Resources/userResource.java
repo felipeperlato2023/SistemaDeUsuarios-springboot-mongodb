@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.algaworks.workshopmongo.Dtos.userDTO;
 import com.algaworks.workshopmongo.Services.UserService;
+import com.algaworks.workshopmongo.domain.Post;
 import com.algaworks.workshopmongo.domain.User;
 
 @RestController
@@ -72,5 +73,13 @@ public class UserResource {
 		obj = service.update(obj);
 
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping("/{id}/posts")
+	public ResponseEntity<List<Post>> findPost(@PathVariable String id) {
+
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(obj.getPosts());
+
 	}
 }
