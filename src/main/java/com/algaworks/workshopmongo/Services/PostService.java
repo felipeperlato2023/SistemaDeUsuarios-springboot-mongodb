@@ -1,5 +1,7 @@
 package com.algaworks.workshopmongo.Services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,12 @@ public class PostService {
 	public Post findById(String id) {
 		java.util.Optional<Post> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Post não encontrado: " + id));
+		
+		
+	}
+	
+	public List<Post> findByTitle(String Text){
+		return repository.findByTitleContainingIgnoreCase(Text);
 	}
 
 	
