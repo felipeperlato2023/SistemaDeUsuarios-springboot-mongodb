@@ -1,5 +1,6 @@
 package com.algaworks.workshopmongo.Services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,13 @@ public class PostService {
 	public List<Post> findByTitle(String Text){
 		return repository.serachTitle(Text);
 	}
-
+	
+	public List<Post> fullSearch(String Text, Date minDate, Date maxDate){
+		
+		maxDate = new Date(maxDate.getTime()+24 * 60 * 60 * 1000);
+		
+		return repository.fullSearch(Text, minDate, maxDate);
+	}
 	
 }
 
